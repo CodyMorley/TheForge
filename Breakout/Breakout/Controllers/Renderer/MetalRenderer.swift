@@ -9,16 +9,30 @@ import Foundation
 import MetalKit
 
 class MetalRenderer: NSObject {
+    //MARK: - Types -
+    struct Constants {
+        var moveBy: Float = 0.0
+    }
+    
+
     //MARK: - Properties -
     let device: MTLDevice
     let commandQueue: MTLCommandQueue
     var pipelineState: MTLRenderPipelineState?
     var vertexBuffer: MTLBuffer?
-    
+    var indexBuffer: MTLBuffer?
+    var constants = Constants()
+    var timeRunning: Float = 0.0
     var vertices: [Float] = [
-        0, 1, 0,
+        -1, 1, 0,
         -1, -1, 0,
-        1, -1, 0
+        1, -1, 0,
+        1, 1, 0
+    ]
+    
+    var indices: [UInt16] = [
+        0, 1, 2,
+        2, 3, 0
     ]
     
     
@@ -37,6 +51,9 @@ class MetalRenderer: NSObject {
         vertexBuffer = device.makeBuffer(bytes: vertices,
                                          length: vertices.count * MemoryLayout<Float>.size,
                                          options: [])
+        indexBuffer = device.makeBuffer(bytes: indices,
+                                        length: indices.count * MemoryLayout<UInt16>.size,
+                                        options: [])
     }
     
     private func buildPipeLineState() {
@@ -70,8 +87,8 @@ extension MetalRenderer: MTKViewDelegate {
     }
     
     func draw(in view: MTKView) {
-        guard let drawable = view.currentDrawable,
-              let pipelineState = pipelineState,
+        guard let pipelineState = pipelineState,
+              let drawable = view.currentDrawable,
               let descriptor = view.currentRenderPassDescriptor else {
             return
         }
@@ -83,14 +100,27 @@ extension MetalRenderer: MTKViewDelegate {
             NSLog("Could not instantiate Metal command encoder.")
             return
         }
+        guard let indexBuffer = indexBuffer else {
+            NSLog("Problem locating index buffer for draw routine.")
+            return
+        }
+        
+        timeRunning += 1 / Float(view.preferredFramesPerSecond)
+        let moveBy = abs(sin(timeRunning) / 2 + 0.5)
+        constants.moveBy = moveBy
         
         commandEncoder.setRenderPipelineState(pipelineState)
         commandEncoder.setVertexBuffer(vertexBuffer,
                                         offset: 0,
                                         index: 0)
-        commandEncoder.drawPrimitives(type: .triangle,
-                                       vertexStart: 0,
-                                       vertexCount: vertices.count)
+        commandEncoder.setVertexBytes(&constants,
+                                      length: MemoryLayout<Constants>.stride,
+                                      index: 1)
+        commandEncoder.drawIndexedPrimitives(type: .triangle,
+                                             indexCount: indices.count,
+                                             indexType: .uint16,
+                                             indexBuffer: indexBuffer,
+                                             indexBufferOffset: 0)
         commandEncoder.endEncoding()
         commandBuffer.present(drawable)
         commandBuffer.commit()

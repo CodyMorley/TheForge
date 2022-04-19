@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04C50AAE280F25BF00F3A2A6 /* Global Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C50AAD280F25BF00F3A2A6 /* Global Types.swift */; };
 		04F348DE27FF6888000E86E1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F348DD27FF6888000E86E1 /* AppDelegate.swift */; };
 		04F348E027FF6888000E86E1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F348DF27FF6888000E86E1 /* SceneDelegate.swift */; };
 		04F348E227FF6888000E86E1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F348E127FF6888000E86E1 /* ViewController.swift */; };
@@ -39,6 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		04C50AAD280F25BF00F3A2A6 /* Global Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Global Types.swift"; sourceTree = "<group>"; };
 		04F348DA27FF6888000E86E1 /* Breakout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Breakout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04F348DD27FF6888000E86E1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		04F348DF27FF6888000E86E1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -161,8 +163,9 @@
 		04F3491827FF82AE000E86E1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				04F34921280660D5000E86E1 /* Colors.swift */,
+				04C50AAD280F25BF00F3A2A6 /* Global Types.swift */,
 				04F3492028065A17000E86E1 /* Shaders */,
-				04F34923280660DC000E86E1 /* Colors */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -199,14 +202,6 @@
 				04F3491E280659FF000E86E1 /* Shader.metal */,
 			);
 			path = Shaders;
-			sourceTree = "<group>";
-		};
-		04F34923280660DC000E86E1 /* Colors */ = {
-			isa = PBXGroup;
-			children = (
-				04F34921280660D5000E86E1 /* Colors.swift */,
-			);
-			path = Colors;
 			sourceTree = "<group>";
 		};
 		04F3492428066116000E86E1 /* Renderer */ = {
@@ -351,6 +346,7 @@
 				04F3491D27FF830D000E86E1 /* MetalRenderer.swift in Sources */,
 				04F34922280660D5000E86E1 /* Colors.swift in Sources */,
 				04F348E227FF6888000E86E1 /* ViewController.swift in Sources */,
+				04C50AAE280F25BF00F3A2A6 /* Global Types.swift in Sources */,
 				04F348DE27FF6888000E86E1 /* AppDelegate.swift in Sources */,
 				04F3491F280659FF000E86E1 /* Shader.metal in Sources */,
 				04F348E027FF6888000E86E1 /* SceneDelegate.swift in Sources */,
